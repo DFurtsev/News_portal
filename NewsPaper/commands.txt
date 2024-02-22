@@ -1,0 +1,77 @@
+python manage.py makemigrations
+python manage.py migrate
+python manage.py shell
+
+from news.models import *
+
+user1=User.objects.create_user(username='Василий')
+user2=User.objects.create_user(username='Ольга')
+
+author1=Author.objects.create(user=user1)
+author2=Author.objects.create(user=user2)
+
+category1=Category.objects.create(category_name='Спорт')
+category2=Category.objects.create(category_name='Финансы')
+category3=Category.objects.create(category_name='Политика')
+category4=Category.objects.create(category_name='Искусство')
+
+post1=Post.objects.create(author=author1, type='NEWS', heading='Заголовок новости', text='Текст новости')
+post1.category.add(category1)
+post1.category.add(category2)
+post2=Post.objects.create(author=author1, heading='Заголовок первой статьи', text='Текст первой статьи')
+post2.category.add(category3)
+post3=Post.objects.create(author=author2, heading='Заголовок второй статьи', text='Текст второй статьи')
+post3.category.add(category4)
+
+comment1=Comment.objects.create(post=post1, user=user2, text='Коммент второго юзера')
+comment2=Comment.objects.create(post=post1, user=user1, text='Коммент первого юзера')
+comment3=Comment.objects.create(post=post2, user=user2, text='Коммент второго юзера')
+comment4=Comment.objects.create(post=post3, user=user1, text='Коммент первого юзера')
+
+post1.like()
+post1.like()
+post1.like()
+post2.like()
+post2.like()
+post2.dislike()
+post3.dislike()
+post3.dislike()
+comment1.like()
+comment2.like()
+comment2.like()
+comment3.like()
+comment4.dislike()
+
+author1.update_rating()
+author2.update_rating()
+
+best_author = Author.objects.order_by('-rating')[:1]
+for i in best_author:
+	i.rating
+	i.user.username
+
+
+best_post = Post.objects.order_by('-rating')[:1]
+for i in best_post:
+	i.publication_time
+	i.author.user.username
+	i.rating
+	i.heading
+	bp_id=i.id
+
+
+bp_preview = Post.objects.get(id=bp_id).preview()
+
+bp_comments = Comment.objects.filter(post=bp_id)
+for i in bp_comments:
+	print('Комментарий:')
+	i.pub_time
+	i.user
+	i.rating
+	i.text
+	print()
+
+
+
+
+
