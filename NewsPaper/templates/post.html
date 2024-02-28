@@ -1,0 +1,22 @@
+
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+<h1>{{ post.heading }}</h1>
+<hr>
+<p>Содержание: {{post.text}}</p>
+<p>Категория: {% for category in post.category.all %}
+                   {{ category.category_name }}
+                    {% endfor %}
+</p>
+<p>Дата публикации: {{ post.publication_time|date:'M d Y'}}</p>
+<p>Автор: {{ post.author }}</p>
+<p>Рейтинг: {{ post.rating }}</p>
+{% endblock content %}
+
+

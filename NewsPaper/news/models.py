@@ -20,9 +20,15 @@ class Author(models.Model):
         self.rating = post_rating*3 + comment_rating + post_comment_rating
         self.save()
 
+    def __str__(self):
+        return self.user.username
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.category_name.title()
 
 
 class Post(models.Model):
@@ -51,6 +57,9 @@ class Post(models.Model):
 
     def preview(self):
         return f'{self.text[:125]}...'
+
+    def __str__(self):
+        return f'{self.heading}: {self.author}'
 
 
 class PostCategory(models.Model):
