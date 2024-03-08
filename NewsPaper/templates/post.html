@@ -17,6 +17,37 @@ Post
 <p>Дата публикации: {{ post.publication_time|date:'M d Y'}}</p>
 <p>Автор: {{ post.author }}</p>
 <p>Рейтинг: {{ post.rating }}</p>
+
+<head>
+   <meta charset="utf-8">
+   <title>Редактировать</title>
+   <style>
+	a.nubex {
+	color: #fff;
+	user-select: none; /* Убираем текстовое выделение */
+	text-decoration: none;	/* Убираем подчеркивание */
+	outline: none; /* Убираем контур вокруг ссылки */
+	background-color: #fa8e47; /* Цвет фона */
+	padding: 1em 2em; /* Отступ от текста до рамки */
+	}
+	a.nubex:active {
+	background-color: #ee6206; /* Цвет кнопки при нажатии */
+	}
+	a.nubex:hover {
+	background-color: #f97f2e; /* Цвет кнопки при наведении курсора */
+	}
+   </style>
+ </head>
+ <body>
+ {% if post.type == 'NEWS' %}
+ <a href=/news/{{post.pk}}/edit class="nubex">Редактировать новость</a>
+ <a href=/news/{{post.pk}}/delete class="nubex">Удалить новость</a>
+ {% endif %}
+ {% if post.type == 'ARTICLE' %}
+ <a href=/article/{{post.pk}}/edit class="nubex">Редактировать стаью</a>
+ <a href=/article/{{post.pk}}/delete class="nubex">Удалить стаью</a>
+ {% endif %}
+ </body>
 {% endblock content %}
 
 

@@ -15,11 +15,11 @@ class PostForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        text = cleaned_data.get("description")
-        if text is not None and len(text) < 20:
-            raise ValidationError({"description": "Содержание должно быть больше 20 слов."})
+        text = cleaned_data.get("text")
+        if text is not None and len(text) < 5:
+            raise ValidationError({"text": "Содержание должно быть больше 5 слов."})
         heading = cleaned_data.get("heading")
         if heading == text:
-            raise ValidationError("Заголовок должен отличаться от названия.")
+            raise ValidationError("Содержание должно отличаться от заголовка.")
 
         return cleaned_data

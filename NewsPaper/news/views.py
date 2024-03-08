@@ -37,12 +37,20 @@ class PostCreate(CreateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
+    def form_valid(self, form):
+        current_url = self.request.path
+        post = form.save(commit=False)
+        if current_url == '/news/create/':
+            post.type = 'NEWS'
+        elif current_url == '/article/create/':
+            post.type = 'ARTICLE'
+        return super().form_valid(form)
 
 
 class PostUpdate(UpdateView):
     form_class = PostForm
     model = Post
-    template_name = 'Post_edit.html'
+    template_name = 'post_edit.html'
 
 
 class PostDelete(DeleteView):

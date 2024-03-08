@@ -26,7 +26,7 @@ Search
 
            {% for post in news %}
            <tr>
-               <td>{{ post.heading|censor }}</td>
+               <td><a href=/posts/{{post.pk}}>{{ post.heading|censor }}</a></td>
                <td>{{ post.publication_time|date:'M d Y' }}</td>
                <td>{{ post.text|censor|truncatewords:20}}</td>
                <td>{% for category in post.category.all %}
