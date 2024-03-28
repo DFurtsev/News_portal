@@ -1,4 +1,4 @@
-import logging
+"""import logging
 from datetime import timedelta
 from django.utils import timezone
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -19,13 +19,9 @@ logger = logging.getLogger(__name__)
 def my_job():
     current_date = timezone.now()
     prev_send = current_date - timedelta(days=7)
-    print(prev_send)
     new_posts = Post.objects.filter(publication_time__gte=prev_send)
-    print(new_posts)
     categories = set(new_posts.values_list('category__category_name', flat=True))
-    print(categories)
     subscribers = set(Category.objects.filter(category_name__in=categories).values_list('subscriptions__user__email', flat=True))
-    print(subscribers)
     html_content = render_to_string(
         'weekly_send.html',
         {
@@ -82,4 +78,4 @@ class Command(BaseCommand):
         except KeyboardInterrupt:
             logger.info("Stopping scheduler...")
             scheduler.shutdown()
-            logger.info("Scheduler shut down successfully!")
+            logger.info("Scheduler shut down successfully!")"""

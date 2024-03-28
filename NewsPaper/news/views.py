@@ -9,6 +9,9 @@ from django.db.models import Exists, OuterRef
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from .models import Subscription, Category
+from django.http import HttpResponse
+from django.views import View
+from .tasks import friday_send, post_publication
 
 
 class NewsList(ListView):
@@ -44,6 +47,7 @@ class PostCreate(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
+
     def form_valid(self, form):
         current_url = self.request.path
         post = form.save(commit=False)
@@ -51,6 +55,8 @@ class PostCreate(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
             post.type = 'NEWS'
         elif current_url == '/article/create/':
             post.type = 'ARTICLE'
+        post.save()
+        post_publication.delay(post.pk)
         return super().form_valid(form)
 
 

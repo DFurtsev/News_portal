@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from .celery import app as celery_app
+
+__all__ = ('celery_app',)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,16 +152,22 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "artest2@yandex.ru"
-EMAIL_HOST_PASSWORD = "cxssxeawdzjbkeyo"
+EMAIL_HOST_USER = "test@yandex.ru"
+EMAIL_HOST_PASSWORD = "1234"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-DEFAULT_FROM_EMAIL = "artest2@yandex.ru"
+DEFAULT_FROM_EMAIL = "test@yandex.ru"
 
-SERVER_EMAIL = "artest2@yandex.ru"
+SERVER_EMAIL = "test@yandex.ru"
 MANAGERS = (
-    ('Dmitry', 'dimafurcev387@gmail.com'),
+    ('test', 'test@gmail.com'),
 )
 EMAIL_SUBJECT_PREFIX = ''
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

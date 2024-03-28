@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+"""from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
@@ -29,4 +29,4 @@ def post_created(instance, **kwargs):
     for email in emails:
         msg = EmailMultiAlternatives(subject, text_content, None, [email])
         msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        msg.send()"""
